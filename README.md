@@ -44,10 +44,12 @@ This portfolio website is designed to present my professional profile in an orga
 
 ```text
 portfolio/
-├── assets/
-│   ├── images/
-│   └── icons/
+├── data/
+├── public/
+├── app.js
+├── contact.html
 ├── index.html
+├── projects.html
 ├── style.css
 ├── app.js
 └── README.md
