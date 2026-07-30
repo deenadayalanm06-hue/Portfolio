@@ -1,84 +1,117 @@
-# Portfolio
-# Project Name
+# 🌐 Personal Portfolio Website
 
-## Overview
+A modern and responsive **Personal Portfolio Website** developed as part of the **Thiranex Internship Program**. This project showcases my profile, technical skills, projects, education, and contact information through a clean and user-friendly interface.
 
-A modern web application built using JavaScript and Node.js.
+---
 
-## Features
+## 📌 Project Overview
+
+This portfolio website is designed to present my professional profile in an organized and visually appealing manner. It highlights my skills, projects, education, and provides an easy way for visitors to connect with me.
+
+---
+
+## ✨ Features
 
 - Responsive Design
-- REST API
-- JSON Data
-- Clean Architecture
-- Easy Deployment
+- Modern User Interface
+- Home Section
+- About Me
+- Skills Section
+- Projects Showcase
+- Education Section
+- Contact Information
+- Smooth Navigation
+- Mobile-Friendly Layout
 
-## Technologies
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
 
 - HTML5
 - CSS3
-- JavaScript
-- Node.js
-- Express
+- JavaScript (ES6)
 
-## Folder Structure
+### Tools
 
+- Git
+- GitHub
+
+---
+
+## 📂 Project Structure
+
+```text
+portfolio/
+├── assets/
+│   ├── images/
+│   └── icons/
+├── index.html
+├── style.css
+├── app.js
+└── README.md
 ```
-project/
-│
-├── index.js
-├── package.json
-├── README.md
-├── projects.json
-└── assets/
-```
 
-## Installation
+> *The folder structure may vary depending on your implementation.*
 
-Clone the repository
+---
+
+## 🚀 Getting Started
+
+### Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/REPOSITORY_NAME.git
+git clone https://github.com/your-username/personal-portfolio.git
 ```
 
-Install dependencies
+### Open the Project
 
-```bash
-npm install
-```
+Simply open the project folder and launch **index.html** in your browser.
 
-Run the project
+Or use **Live Server** in Visual Studio Code.
 
-```bash
-npm start
-```
+---
 
-## API
+## 📖 Website Sections
 
-Example endpoint
+- Home
+- About
+- Skills
+- Projects
+- Education
+- Contact
 
-```
-GET /projects
-```
+---
 
-Response
+## 🎯 Learning Outcomes
 
-```json
-[
-  {
-    "id":1,
-    "title":"Portfolio"
-  }
-]
-```
+Through this project, I gained practical experience in:
 
-## Future Improvements
+- Responsive Web Design
+- HTML5 Semantic Elements
+- CSS Flexbox & Grid
+- JavaScript DOM Manipulation
+- UI/UX Design Principles
+- Website Layout Design
+- Git & GitHub Workflow
 
-- Authentication
-- Database Integration
-- Docker Support
-- CI/CD
+---
 
-## License
+## 👩‍💻 Developer
 
-MIT License
+**DEENADAYALAN M**
+
+**B.Sc. Computer Science Student**
+
+**Karan Arts and Science College**
+
+---
+
+##  Acknowledgement
+
+This project was developed as part of the **Thiranex Internship Program** to strengthen practical web development skills and build a professional online portfolio.
+
+---
+
+⭐ **If you found this project useful, consider giving it a Star!**
