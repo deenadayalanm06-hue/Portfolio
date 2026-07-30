@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Alex Johnson</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">💼 Alex Johnson</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <h1>Get In Touch 📬</h1>
+    <p>Have a project in mind or just want to say hi? I'd love to hear from you.</p>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- CONTACT FORM -->
+      <div class="contact-form-box">
+        <h2>Send a Message</h2>
+        <div id="contactMsg" class="msg"></div>
+
+        <label>Your Name</label>
+        <input type="text" id="contactName" placeholder="Enter your name" />
+
+        <label>Your Email</label>
+        <input type="email" id="contactEmail" placeholder="Enter your email" />
+
+        <label>Message</label>
+        <textarea id="contactMessage" rows="6" placeholder="Write your message here..."></textarea>
+
+        <button class="btn full-btn" onclick="sendMessage()">📤 Send Message</button>
+      </div>
+
+      <!-- CONTACT INFO -->
+      <div class="contact-info-box">
+        <h2>Contact Info</h2>
+
+        <div class="info-card">
+          <span class="info-icon">📧</span>
+          <div>
+            <h4>Email</h4>
+            <p id="infoEmail">alex.johnson@email.com</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <span class="info-icon">🐙</span>
+          <div>
+            <h4>GitHub</h4>
+            <a id="infoGithub" href="#" target="_blank">github.com/alexjohnson</a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <span class="info-icon">💼</span>
+          <div>
+            <h4>LinkedIn</h4>
+            <a id="infoLinkedin" href="#" target="_blank">linkedin.com/in/alexjohnson</a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <span class="info-icon">📍</span>
+          <div>
+            <h4>Location</h4>
+            <p>India 🇮🇳</p>
+          </div>
+        </div>
+
+        <div class="availability">
+          <span class="dot"></span> Available for freelance & internship opportunities
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Alex Johnson — Built for THIRANEX Internship Task 1</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Load contact info from API
+    async function loadInfo() {
+      const res = await fetch('/api/info');
+      const info = await res.json();
+
+      document.getElementById('infoEmail').textContent = info.email;
+      document.getElementById('infoGithub').href = info.github;
+      document.getElementById('infoGithub').textContent = info.github.replace('https://', '');
+      document.getElementById('infoLinkedin').href = info.linkedin;
+      document.getElementById('infoLinkedin').textContent = info.linkedin.replace('https://', '');
+    }
+
+    // Send message
+    async function sendMessage() {
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+      const msg = document.getElementById('contactMsg');
+
+      if (!name || !email || !message) {
+        msg.textContent = 'Please fill in all fields.';
+        msg.className = 'msg error';
+        return;
+      }
+
+      // Basic email validation
+      if (!email.includes('@')) {
+        msg.textContent = 'Please enter a valid email.';
+        msg.className = 'msg error';
+        return;
+      }
+
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        msg.textContent = '✅ Message sent successfully! I will get back to you soon.';
+        msg.className = 'msg success';
+        document.getElementById('contactName').value = '';
+        document.getElementById('contactEmail').value = '';
+        document.getElementById('contactMessage').value = '';
+      } else {
+        msg.textContent = data.error || 'Something went wrong.';
+        msg.className = 'msg error';
+      }
+    }
+
+    loadInfo();
+  </script>
+</body>
+</html>

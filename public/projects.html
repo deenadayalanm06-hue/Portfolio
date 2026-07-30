@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects — Alex Johnson</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">💼 Alex Johnson</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <h1>My Projects 🚀</h1>
+    <p>A collection of things I've built with passion and purpose.</p>
+  </div>
+
+  <!-- PROJECTS SECTION -->
+  <div class="container">
+    <div id="projectsGrid" class="projects-grid">
+      <p>Loading projects...</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Alex Johnson — Built for THIRANEX Internship Task 1</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    async function loadProjects() {
+      const res = await fetch('/api/projects');
+      const projects = await res.json();
+      const grid = document.getElementById('projectsGrid');
+
+      if (projects.length === 0) {
+        grid.innerHTML = '<p class="no-posts">No projects yet.</p>';
+        return;
+      }
+
+      grid.innerHTML = projects.map(p => `
+        <div class="project-card">
+          <div class="project-top">
+            <h3>${p.title}</h3>
+            <p>${p.description}</p>
+          </div>
+          <div class="project-tech">
+            ${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+          </div>
+          <div class="project-links">
+            <a href="${p.github}" target="_blank" class="btn btn-sm">🐙 GitHub</a>
+            <a href="${p.demo}" target="_blank" class="btn btn-sm btn-outline">🔗 Live Demo</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    loadProjects();
+  </script>
+</body>
+</html>

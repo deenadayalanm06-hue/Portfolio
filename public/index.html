@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alex Johnson — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">💼 Alex Johnson</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-greeting">👋 Hello, I'm</p>
+        <h1 id="heroName">Alex Johnson</h1>
+        <h2 id="heroRole" class="hero-role">Full Stack Developer</h2>
+        <p id="heroAbout" class="hero-desc">
+          Passionate about building modern web applications and solving real-world problems with clean, efficient code.
+        </p>
+        <div class="hero-btns">
+          <a href="projects.html" class="btn">View My Work</a>
+          <a href="contact.html" class="btn btn-outline">Hire Me</a>
+        </div>
+        <div class="hero-social" id="heroSocial">
+          <a href="#" id="githubLink" target="_blank">🐙 GitHub</a>
+          <a href="#" id="linkedinLink" target="_blank">💼 LinkedIn</a>
+          <a href="#" id="emailLink">📧 Email</a>
+        </div>
+      </div>
+      <div class="hero-avatar">
+        <div class="avatar-circle">
+          <span id="avatarInitials">AJ</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <span class="about-icon">🎯</span>
+          <h3>Who I Am</h3>
+          <p id="aboutText">A passionate full stack developer with experience in building web applications using modern technologies.</p>
+        </div>
+        <div class="about-card">
+          <span class="about-icon">💡</span>
+          <h3>What I Do</h3>
+          <p>I design and develop responsive web applications, RESTful APIs, and database-driven solutions from scratch.</p>
+        </div>
+        <div class="about-card">
+          <span class="about-icon">🚀</span>
+          <h3>My Goal</h3>
+          <p>To build impactful products that solve real problems while continuously learning and growing as a developer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section class="section bg-light" id="skills">
+    <div class="container">
+      <h2 class="section-title">My Skills</h2>
+      <div id="skillsGrid" class="skills-grid">
+        <!-- Loaded from API -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECTS -->
+  <section class="section" id="projects">
+    <div class="container">
+      <h2 class="section-title">Featured Projects</h2>
+      <div id="projectsGrid" class="projects-grid">
+        <!-- Loaded from API -->
+      </div>
+      <div class="center-btn">
+        <a href="projects.html" class="btn">View All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Let's Work Together 🤝</h2>
+      <p>Have a project in mind? I'd love to hear about it.</p>
+      <a href="contact.html" class="btn">Get In Touch</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Alex Johnson — Built for THIRANEX Internship Task 1</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Load portfolio info from API
+    async function loadInfo() {
+      const res = await fetch('/api/info');
+      const info = await res.json();
+
+      document.getElementById('heroName').textContent = info.name;
+      document.getElementById('heroRole').textContent = info.role;
+      document.getElementById('heroAbout').textContent = info.about;
+      document.getElementById('aboutText').textContent = info.about;
+      document.getElementById('githubLink').href = info.github;
+      document.getElementById('linkedinLink').href = info.linkedin;
+      document.getElementById('emailLink').href = 'mailto:' + info.email;
+
+      // Avatar initials
+      const initials = info.name.split(' ').map(n => n[0]).join('');
+      document.getElementById('avatarInitials').textContent = initials;
+
+      // Update logo
+      document.querySelector('.logo').textContent = '💼 ' + info.name;
+
+      // Skills
+      const skillsGrid = document.getElementById('skillsGrid');
+      skillsGrid.innerHTML = info.skills.map(cat => `
+        <div class="skill-card">
+          <h3>${cat.category}</h3>
+          <div class="skill-tags">
+            ${cat.items.map(item => `<span class="skill-tag">${item}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Load featured projects (first 3)
+    async function loadProjects() {
+      const res = await fetch('/api/projects');
+      const projects = await res.json();
+      const grid = document.getElementById('projectsGrid');
+
+      grid.innerHTML = projects.slice(0, 3).map(p => `
+        <div class="project-card">
+          <div class="project-top">
+            <h3>${p.title}</h3>
+            <p>${p.description}</p>
+          </div>
+          <div class="project-tech">
+            ${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+          </div>
+          <div class="project-links">
+            <a href="${p.github}" target="_blank" class="btn btn-sm">🐙 GitHub</a>
+            <a href="${p.demo}" target="_blank" class="btn btn-sm btn-outline">🔗 Demo</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    loadInfo();
+    loadProjects();
+  </script>
+</body>
+</html>
